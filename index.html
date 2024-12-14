@@ -3,19 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website Reopen Example</title>
+    <title>Try to Leave Page</title>
     <script>
-        window.onbeforeunload = function(e) {
-            // Open a new window/tab to reload the page (can be blocked by browser pop-up settings)
-            window.open(window.location.href, "_blank");
+        // The onbeforeunload event may not always fire reliably in modern browsers
+        window.onbeforeunload = function(event) {
+            // Prevent the default action (this may still not always work)
+            event.preventDefault();
+            
+            // Show a confirmation message (this works in some browsers)
+            event.returnValue = "Are you sure you want to leave?";
 
-            // Optional: Reload the current page (works less reliably)
-            location.reload();
+            // Using setTimeout to attempt reloading the page after a short delay
+            setTimeout(function() {
+                location.reload(); // Try to reload the page
+                window.open(location.href, "_blank"); // Open a new tab with the same URL
+            }, 200);
         };
     </script>
 </head>
 <body>
-    <h1>Try to leave this page!</h1>
-    <p>If you try to close this page or navigate away, it will reopen.</p>
+    <h1>Test Page</h1>
+    <p>Try to leave this page, and the script will try to reopen it.</p>
 </body>
 </html>
