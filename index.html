@@ -28,14 +28,16 @@
 
     .topbar {
       position: absolute;
-      left: 12px;
-      top: 12px;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
       background: rgba(0,0,0,0.45);
       backdrop-filter: blur(4px);
       color: white;
       padding: 8px 12px;
       border-radius: 10px;
       font-size: 13px;
+      text-align: center;
     }
 
     .controls {
@@ -82,9 +84,7 @@
 <body>
   <div class="frame-wrap">
     <div class="topbar">made by robby and josh</div>
-    <div class="controls">
-
- </div>
+    <div class="controls"></div>
 
     <iframe
       id="siteFrame"
@@ -115,14 +115,18 @@
       const openNewTabBtn = document.getElementById('openNewTab');
       const reloadBtn = document.getElementById('reloadFrame');
 
-      openNewTabBtn.addEventListener('click', () => {
-        window.open('https://preview-4dildtaqglwl.hellofigwebsite.com/', '_blank', 'noopener');
-      });
-      reloadBtn.addEventListener('click', () => {
-        iframe.src = iframe.src;
-        fallback.style.display = 'none';
-        checkEmbed();
-      });
+      if (openNewTabBtn) {
+        openNewTabBtn.addEventListener('click', () => {
+          window.open('https://preview-4dildtaqglwl.hellofigwebsite.com/', '_blank', 'noopener');
+        });
+      }
+      if (reloadBtn) {
+        reloadBtn.addEventListener('click', () => {
+          iframe.src = iframe.src;
+          fallback.style.display = 'none';
+          checkEmbed();
+        });
+      }
 
       let loaded = false;
       iframe.addEventListener('load', () => {
