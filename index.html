@@ -1,28 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Try to Leave Page</title>
-    <script>
-        // The onbeforeunload event may not always fire reliably in modern browsers
-        window.onbeforeunload = function(event) {
-            // Prevent the default action (this may still not always work)
-            event.preventDefault();
-            
-            // Show a confirmation message (this works in some browsers)
-            event.returnValue = "Are you sure you want to leave?";
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Beyond Feet</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      background: #0a0a0a;
+      color: #cfcfcf;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+    }
 
-            // Using setTimeout to attempt reloading the page after a short delay
-            setTimeout(function() {
-                location.reload(); // Try to reload the page
-                window.open(location.href, "_blank"); // Open a new tab with the same URL
-            }, 200);
-        };
-    </script>
+    .frame-wrap {
+      position: fixed;
+      inset: 0;
+      display: grid;
+    }
+
+    iframe.full-embed {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .topbar {
+      position: absolute;
+      left: 12px;
+      top: 12px;
+      background: rgba(0,0,0,0.45);
+      backdrop-filter: blur(4px);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 13px;
+    }
+
+    .controls {
+      position: absolute;
+      right: 12px;
+      top: 12px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .fallback {
+      position: absolute;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+      background: linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.75));
+      color: white;
+    }
+    .fallback a {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 10px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      background: rgba(255,255,255,0.95);
+      color: black;
+      font-weight: 600;
+    }
+  </style>
 </head>
 <body>
-    <h1>Test Page</h1>
-    <p>Try to leave this page, and the script will try to reopen it.</p>
+  <div class="frame-wrap">
+    <div class="topbar">Embedding: preview-4dildtaqglwl.hellofigwebsite.com</div>
+    <div class="controls">
+      <button class="btn" id="openNewTab">Open in new tab</button>
+      <button class="btn" id="reloadFrame">Reload</button>
+    </div>
+
+    <iframe
+      id="siteFrame"
+      class="full-embed"
+      src="https://preview-4dildtaqglwl.hellofigwebsite.com/"
+      title="hellofigwebsite preview embed"
+      sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+      allowfullscreen
+    ></iframe>
+
+    <div class="fallback" id="fallbackPanel">
+      <div>
+        <p>
+          The site could not be displayed inside a frame. If embedding is blocked,
+          open it directly in a new tab.
+        </p>
+        <a href="https://preview-4dildtaqglwl.hellofigwebsite.com/" target="_blank" rel="noopener noreferrer">
+          Open site in a new tab
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const iframe = document.getElementById('siteFrame');
+      const fallback = document.getElementById('fallbackPanel');
+      const openNewTabBtn = document.getElementById('openNewTab');
+      const reloadBtn = document.getElementById('reloadFrame');
+
+      openNewTabBtn.addEventListener('click', () => {
+        window.open('https://preview-4dildtaqglwl.hellofigwebsite.com/', '_blank', 'noopener');
+      });
+      reloadBtn.addEventListener('click', () => {
+        iframe.src = iframe.src;
+        fallback.style.display = 'none';
+        checkEmbed();
+      });
+
+      let loaded = false;
+      iframe.addEventListener('load', () => {
+        loaded = true;
+        fallback.style.display = 'none';
+      });
+
+      function checkEmbed() {
+        loaded = false;
+        setTimeout(() => {
+          if (!loaded) fallback.style.display = 'flex';
+        }, 1800);
+      }
+
+      checkEmbed();
+    })();
+  </script>
 </body>
 </html>
