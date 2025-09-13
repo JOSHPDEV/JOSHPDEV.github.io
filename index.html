@@ -27,36 +27,26 @@
       display: block;
     }
 
-    .topbar {
+    .titlebar {
       position: absolute;
-      bottom: 12px;
+      top: 12px;
       left: 50%;
       transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 8px;
       background: rgba(0,0,0,0.45);
       backdrop-filter: blur(4px);
-      color: white;
-      padding: 8px 12px;
+      padding: 6px 12px;
       border-radius: 10px;
-      font-size: 13px;
-      text-align: center;
-    }
-
-    .controls {
-      position: absolute;
-      right: 12px;
-      top: 12px;
-      display: flex;
-      gap: 8px;
-    }
-
-    .btn {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.12);
+      font-size: 15px;
+      font-weight: 600;
       color: white;
-      padding: 8px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 13px;
+    }
+
+    .titlebar img {
+      width: 20px;
+      height: 20px;
     }
 
     .fallback {
@@ -84,7 +74,11 @@
 </head>
 <body>
   <div class="frame-wrap">
-    
+    <!-- Title bar with icon + text -->
+    <div class="titlebar">
+      <img src="icon.ico" alt="Site Icon">
+      <span>Beyond Feet</span>
+    </div>
 
     <iframe
       id="siteFrame"
@@ -112,21 +106,6 @@
     (function () {
       const iframe = document.getElementById('siteFrame');
       const fallback = document.getElementById('fallbackPanel');
-      const openNewTabBtn = document.getElementById('openNewTab');
-      const reloadBtn = document.getElementById('reloadFrame');
-
-      if (openNewTabBtn) {
-        openNewTabBtn.addEventListener('click', () => {
-          window.open('https://preview-4dildtaqglwl.hellofigwebsite.com/', '_blank', 'noopener');
-        });
-      }
-      if (reloadBtn) {
-        reloadBtn.addEventListener('click', () => {
-          iframe.src = iframe.src;
-          fallback.style.display = 'none';
-          checkEmbed();
-        });
-      }
 
       let loaded = false;
       iframe.addEventListener('load', () => {
